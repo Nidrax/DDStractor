@@ -1,2 +1,2 @@
 # DDStractor
-Tool for extracting header informations from DDS files
+Tool for reading the DDS file header metadata
