@@ -8,23 +8,6 @@
 namespace DDS
 {
 constexpr uint32_t MagicNumber = 0x20534444;
-constexpr uint32_t StrToFourCC(const char* str) {
-    if (std::strlen(str) > 4) {
-        throw std::invalid_argument("FourCC string must be 4 characters or less");
-    }
-    return static_cast<uint32_t>(str[0]) |
-           static_cast<uint32_t>(str[1]) << 8 |
-           static_cast<uint32_t>(str[2]) << 16 |
-           static_cast<uint32_t>(str[3]) << 24;
-}
-static char* FourCCToStr(const uint32_t fourCC) {
-    static char str[5] = {0};
-    str[0] = static_cast<char>(fourCC & 0xFF);
-    str[1] = static_cast<char>((fourCC >> 8) & 0xFF);
-    str[2] = static_cast<char>((fourCC >> 16) & 0xFF);
-    str[3] = static_cast<char>((fourCC >> 24) & 0xFF);
-    return str;
-}
 
 enum class HeaderFlags : uint32_t
 {
@@ -48,25 +31,6 @@ enum class PixelFormatFlags : uint32_t
     Luminance = 0x20000
 };
 
-enum class TextureCaps1 : uint32_t
-{
-    Complex = 0x8,
-    Texture = 0x1000,
-    Mipmap = 0x400000
-};
-
-enum class TextureCaps2 : uint32_t
-{
-    Cubemap = 0x200,
-    CubemapPositiveX = 0x400,
-    CubemapNegativeX = 0x800,
-    CubemapPositiveY = 0x1000,
-    CubemapNegativeY = 0x2000,
-    CubemapPositiveZ = 0x4000,
-    CubemapNegativeZ = 0x8000,
-    Volume = 0x200000
-};
-
 enum class ResourceDimension : uint32_t
 {
     Unknown = 0,
@@ -75,15 +39,6 @@ enum class ResourceDimension : uint32_t
     Texture2D = 3,
     Texture3D = 4,
     TextureCube = 5
-};
-
-enum class AlphaMode : uint32_t
-{
-    Unknown = 0,
-    Straight = 1,
-    Premultiplied = 2,
-    Opaque = 3,
-    Custom = 4
 };
 
 struct Header
@@ -109,8 +64,8 @@ struct Header
         uint32_t            aBitMask;       // Bit mask for alpha channel
     } pixelFormat;
 
-    TextureCaps1    caps1;          // Caps1 flags indicating texture type and usage
-    TextureCaps2    caps2;          // Caps2 flags indicating additional properties
+    uint32_t        caps1;          // Caps1 flags indicating texture type and usage
+    uint32_t        caps2;          // Caps2 flags indicating additional properties
     uint32_t        reserved2[3];   // Reserved fields, must be zero
 };
 

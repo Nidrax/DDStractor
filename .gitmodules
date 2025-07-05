@@ -1,0 +1,3 @@
+[submodule "lib/kulerd"]
+	path = lib/kulerd
+	url = git@github.com:Nidrax/kulerd.git
