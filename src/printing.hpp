@@ -120,12 +120,12 @@ static std::string to_str(const HeaderFlags flags)
     return result;
 }
 
-static std::string to_str(const DXGI::Format format)
+static std::string format_to_str(const uint32_t format)
 {
-    if (!DXGI::FormatName.contains(format)) {
+    if (191 < format || 0 == format) {
         return c("Unknown", Color::Red);
     }
-    return c(DXGI::FormatName.at(format), Color::Green);
+    return c(DXGI::Format[format], DXGI::Format[format] == "[Unused]" ? Color::Red : Color::Blue);
 }
 
 static std::string misc_to_str(const uint32_t flags)
@@ -153,7 +153,7 @@ inline void print_header(const Header& header, const HeaderDX10& headerDX10 = {}
 
     if (isDX10) {
         std::cout << c("DDS Header DX10:", Color::Cyan) << std::endl;
-        std::cout << t("  Format:    ") << to_str(headerDX10.dxgiFormat) << std::endl;
+        std::cout << t("  Format:    ") << format_to_str(headerDX10.dxgiFormat) << std::endl;
         std::cout << t("  Dimension: ") << to_str(headerDX10.resourceDimension) << std::endl;
         std::cout << t("  ArraySize: ") << headerDX10.arraySize << std::endl;
         if (headerDX10.miscFlag & 0x4) { std::cout << t("  MiscFlag1: ") << "TextureCube" << std::endl; }

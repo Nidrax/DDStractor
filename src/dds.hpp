@@ -71,7 +71,7 @@ struct Header
 
 struct HeaderDX10
 {
-    DXGI::Format        dxgiFormat;         // DXGI format of the texture
+    uint32_t            dxgiFormat;         // DXGI format of the texture
     ResourceDimension   resourceDimension;  // Resource dimension (1D, 2D, 3D, etc.)
     uint32_t            miscFlag;           // Miscellaneous flags
     uint32_t            arraySize;          // Number of textures in an array
