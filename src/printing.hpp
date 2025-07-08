@@ -28,7 +28,7 @@ static std::string t(const std::string& s)
     return c(s, Color::BrightBlack, Color::Default);
 }
 
-constexpr uint32_t str_to_cc(const char* str)
+static uint32_t str_to_cc(const char* str)
 {
     if (std::strlen(str) > 4) {
         throw std::invalid_argument("FourCC string must be 4 characters or less");
